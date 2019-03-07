@@ -13,19 +13,20 @@ router.get('/webhook', function (req, res) {
   else res.send('Error, wrong validation token');
 });
 
-router.post('/webhook', (req, res)=>{
-  let data = req.body
+router.post("/webhook", (req, res) => {
+  let data = req.body;
   console.log(data);
   let entries = data.entry;
-  entries.map(entry=>{
+  entries.map(entry => {
     let messages = entry.messaging;
-    messages.map(message=>{
+    messages.map(message => {
       let sender = message.sender.id;
       let mess = message.message.text;
-      callSendAPI(sender, mess);
+      console.log(sender, mess)
+      callSendAPI(sender, mess)
     })
   })
-  res.status(200).send("ok");
+  res.status(200).send('ok')
 })
 
 function callSendAPI(sender_psid, message) {

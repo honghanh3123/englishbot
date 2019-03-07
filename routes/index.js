@@ -25,6 +25,7 @@ router.post('/webhook', (req, res)=>{
       callSendAPI(sender, mess);
     })
   })
+  res.status(200).send("ok");
 })
 
 function callSendAPI(sender_psid, message) {

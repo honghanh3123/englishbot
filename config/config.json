@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "baquavcemhaslu",
+    "password": "bc367f90e1a8b08cc039bbadc7925bf0a3a01d77e96b8d6f325ddbd9a09859b0",
+    "database": "d2t038egd0i5i1",
+    "host": "ec2-23-23-195-205.compute-1.amazonaws.com",
+    "dialect": "postgres",
+    "port": "5432"
   },
   "test": {
     "username": "root",

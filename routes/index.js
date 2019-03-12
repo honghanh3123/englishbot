@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -42,17 +43,21 @@ function callSendAPI(sender_psid, message) {
 
   // Send the HTTP request to the Messenger Platform
   request({
-    "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": "EAAdZBygDQHKYBADEePs5mihYs33UFTAoGciMdJ27EFBLzpRAhoWsNjyl3ofhqxxPkim4if0lLt5U5hnhYdf22N2NzI9pcGsAOrpCoiUXgrwjVNEZBMODLvPHcyYBwuJhMlBvgnrdfpbeNb19oCeCA28wZCQUoLhYvyz52qZCOwZDZDEAALTPHvvB5sBAGofyA67aTA3YoTWjCblSg6hrB7FhYkQ7OFYgeVJsdAsMZCfoqZBzYHiXrP4nrYNdlwyRBmhqrjDAG3t7v2ZAmG4t0sFCO4ajYANToWD8wLLSBNiM1DpDvbAOZBzsyrXVJh0clkmP4wUckE2L4GTw0FkZBaFR8QZDZD" },
-    "method": "POST",
-    "json": request_body
+    uri: "https://graph.facebook.com/v2.6/me/messages",
+    qs: {
+      "access_token": "EAAdZBygDQHKYBAAyTv5MHFCIqEdOmKGaL1UFFu9Abx2bS064LGizw2mbMTZARCJPuem2xOncTzRAO90i6AyZCjkHEQ6s2Chy5Chm2ZCBuVvoUekSfDUDpZATPR0H6y2XMTa4QHewQYyVHavHKyE8KJLa18EAEHqt9AjjJdt5kCwZDZD"
+    },
+    method: "POST",
+    json: request_body
   }, (err, res, body) => {
     if (!err) {
-      console.log('message sent!')
+      console.log(body)
     } else {
       console.error("Unable to send message:" + err);
     }
   });
 }
 
-module.exports = router;
+callSendAPI(2714751901898747, "Hanh cafrotos")
+
+// module.exports = router;

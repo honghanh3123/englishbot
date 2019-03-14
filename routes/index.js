@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-
+var db = require('../models');
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.status(200).send("ok boss")
 });
 
@@ -23,8 +23,14 @@ router.post("/webhook", (req, res) => {
     messages.map(message => {
       let sender = message.sender.id;
       let mess = message.message.text;
-      console.log(sender, mess)
-      callSendAPI(sender, mess)
+      db.tbl_edict.findOne({ where: { word: mess } })
+        .then(word => {
+          callSendAPI(sender, word.dataValues.detail);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      // callSendAPI(sender, mess)
     })
   })
   res.status(200).send('ok')
@@ -45,13 +51,13 @@ function callSendAPI(sender_psid, message) {
   request({
     uri: "https://graph.facebook.com/v2.6/me/messages",
     qs: {
-      "access_token": "EAAdZBygDQHKYBAL8zYDntDhAn6orb1ZAcUQ1Vxu1QlDff5s179nvEkHFO92pDTcqOxYgqpMPtUCtZCZBbIlhNz0N9FfBnqJbbFGOyYMIrTD5dVNBx5q8su2kNcRyUcKWnh2Jx0s05tWTC8WoY1BOxmKDft3MLxnERT9xxsy89QZDZDEAAdZBygDQHKYBAAyTv5MHFCIqEdOmKGaL1UFFu9Abx2bS064LGizw2mbMTZARCJPuem2xOncTzRAO90i6AyZCjkHEQ6s2Chy5Chm2ZCBuVvoUekSfDUDpZATPR0H6y2XMTa4QHewQYyVHavHKyE8KJLa18EAEHqt9AjjJdt5kCwZDZD"
+      "access_token": "EAAdZBygDQHKYBAF55jpGIRL6xGAbjvmtqvcVHAFuhhCvtKV5xoUoIBJpaJ3TdtRSux6BZCGYmV2Ioml9CCzsWEshdhlGQl2Pj9w50mlMtZBsv75jQnJdh3ci5Jd1qFhXU5bDtZC2oX9CbWFZBZAL3NL9pYwVGuG1KPkrjAagkeYwZDZD"
     },
     method: "POST",
     json: request_body
   }, (err, res, body) => {
     if (!err) {
-      console.log(body)
+      console.log("Response from facebook: ", body)
     } else {
       console.error("Unable to send message:" + err);
     }

@@ -58,6 +58,6 @@ function callSendAPI(sender_psid, message) {
   });
 }
 
-callSendAPI(2714751901898747, "Hanh cafrotos")
+// callSendAPI(2714751901898747, "Hanh cafrotos")
 
-// module.exports = router;
+module.exports = router;
